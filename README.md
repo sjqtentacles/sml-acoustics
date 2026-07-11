@@ -27,7 +27,7 @@ sig
 end
 ```
 
-## Worked example
+## Usage example
 
 ```sml
 (* Sound pressure level of 1 Pa relative to 20 µPa reference *)
@@ -41,6 +41,42 @@ val rt60 = Acoustics.sabineRT60 {volumeM3=1000.0, totalAbsorptionSabins=200.0}
 (* Speed of sound at room temperature *)
 val sos = Acoustics.speedOfSoundAir 20.0
 (* ~343 m/s *)
+```
+
+## Example
+
+`make example` builds and runs [`examples/demo.sml`](examples/demo.sml), which
+exercises dB/amplitude and dB/power round-trips, sound pressure level
+conversions, A/C-weighting at two frequencies, Sabine/Eyring reverberation
+time, the inverse-square law, and the speed of sound in air (output is
+byte-identical under MLton and Poly/ML):
+
+```
+=== sml-acoustics demo ===
+
+dB <-> amplitude/power round-trips:
+  dbFromAmplitude 2.0        = 6.021 dB
+  amplitudeFromDb (above)    = 2.000
+  dbFromPower 2.0            = 3.010 dB
+  powerFromDb (above)        = 2.000
+
+Sound pressure level (1 Pa relative to 20 uPa reference):
+  splFromPressure            = 93.979 dB SPL
+  pressureFromSpl (above)    = 1.000000 Pa
+
+Frequency weighting (dB relative to 1 kHz):
+  aWeighting 1000.0 Hz       = 0.000 dB
+  aWeighting 100.0 Hz        = -19.145 dB
+  cWeighting 1000.0 Hz       = 0.000 dB
+  cWeighting 100.0 Hz        = -0.300 dB
+
+Reverberation time (1000 m^3 room):
+  sabineRT60 (200 sabins)    = 0.805 s
+  eyringRT60 (600 m^2, a=0.2)= 1.203 s
+
+Inverse-square law and speed of sound:
+  inverseSquareSpl 90dB@1m->10m = 70.000 dB
+  speedOfSoundAir 20.0 C     = 343.215 m/s
 ```
 
 ## Scope and limitations
