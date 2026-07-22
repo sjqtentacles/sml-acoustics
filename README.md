@@ -1,5 +1,7 @@
 # sml-acoustics
 
+[![CI](https://github.com/sjqtentacles/sml-acoustics/actions/workflows/ci.yml/badge.svg)](https://github.com/sjqtentacles/sml-acoustics/actions/workflows/ci.yml)
+
 Zero-dependency Standard ML library for room acoustics and audio signal-level calculations.
 
 ## API
